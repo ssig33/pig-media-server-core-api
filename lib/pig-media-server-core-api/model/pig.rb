@@ -23,6 +23,13 @@ class Pig
   def metadata; self.record.metadata;end
   def srt; self.record.srt;end
   def url; 'http://'+self.config['hostname']+ '/volume' + URI.encode(self.record.path.sub(/#{config['path'].sub(/\//, '\/')}/, ''));end
+  def vdr
+    if self.record.vdr.to_s != ''
+      self.record.vdr
+    else
+      nil
+    end
+  end
   def type
     case self.name.split('.').last
     when 'mp4', 'MP4', 'webm', 'm4v'
@@ -65,7 +72,7 @@ str.chomp.chomp
   end
 
   def to_hash(opts = {})
-    hash = {key: self.key, name: self.name, mtime: self.mtime, size: self.size, url: self.url, type: self.type, mtime_to_i: self.mtime_to_i}
+    hash = {key: self.key, name: self.name, mtime: self.mtime, size: self.size, url: self.url, type: self.type, mtime_to_i: self.mtime_to_i, vdr: self.vdr}
     hash
   end
 
