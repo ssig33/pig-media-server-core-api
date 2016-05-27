@@ -71,5 +71,11 @@ module PigMediaServerCoreAPI
       content_type :json
       list_to_json(Pig.search params.merge(page: page))
     end
+
+    get '/api/r/metadata/:key' do
+      content_type :json
+      pig = Pig.find(params[:key])
+      {metadata: pig.metadata, srt: pig.srt, url: pig.url}.to_json
+    end
   end
 end
